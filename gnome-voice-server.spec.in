@@ -1,0 +1,56 @@
+Name:           @PACKAGE_NAME@
+Version:        @PACKAGE_VERSION@
+Release:        1%{?dist}
+Summary:        Server that stores and serves GNOME Voice voicegrams
+License:        GPL-3.0-or-later
+URL:            @PACKAGE_URL@
+Source0:        %{name}-%{version}.tar.xz
+
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.66
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  curl
+
+%description
+gnome-voice-server accepts Ogg Vorbis voicegrams and their Voicegram XML
+metadata from the GNOME Voice client over HTTP, stores them, and serves
+them back for listing and playback. Includes gnome-voice-send, a
+command-line uploader.
+
+%prep
+%autosetup
+
+%build
+%configure --with-systemdsystemunitdir=%{_unitdir}
+%make_build
+
+%check
+make check
+
+%install
+%make_install
+
+%post
+%systemd_post gnome-voice-server.service
+
+%preun
+%systemd_preun gnome-voice-server.service
+
+%postun
+%systemd_postun_with_restart gnome-voice-server.service
+
+%files
+%license COPYING
+%doc README.md PROTOCOL.md NEWS
+%{_bindir}/gnome-voice-server
+%{_bindir}/gnome-voice-send
+%dir %{_sysconfdir}/gnome-voice-server
+%config(noreplace) %{_sysconfdir}/gnome-voice-server/gnome-voice-server.conf
+%{_unitdir}/gnome-voice-server.service
+%{_mandir}/man1/gnome-voice-server.1*
+%{_mandir}/man1/gnome-voice-send.1*
+
+%changelog
+* Thu Oct 15 2026 Ole Kristian Aamot <ole.aamot@aamotinnovation.com> - 1.0.0-1
+- Initial release

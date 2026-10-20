@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<voice version="9.0.0">
+  <station name="Ole Aamot" uri="http://www.gnomevoice.org/">
+    <location lat="59.913900" lon="10.752200">Oslo</location>
+    <stream>http://localhost/GNOME.ogg</stream>
+  </station>
+</voice>

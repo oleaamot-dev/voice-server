@@ -1,0 +1,30 @@
+[Unit]
+Description=GNOME Voice voicegram server
+Documentation=man:gnome-voice-server(1) https://www.gnomevoice.org/
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+ExecStart=@bindir@/gnome-voice-server --config @sysconfdir@/gnome-voice-server/gnome-voice-server.conf --storage-dir @gvs_storagedir@
+DynamicUser=yes
+StateDirectory=gnome-voice-server
+Restart=on-failure
+
+# Hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+
+[Install]
+WantedBy=multi-user.target

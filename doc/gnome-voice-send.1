@@ -1,0 +1,44 @@
+.TH GNOME-VOICE-SEND 1 "October 2026" "gnome-voice-server 1.0.0" "User Commands"
+.SH NAME
+gnome-voice-send \- upload a GNOME Voice voicegram to a gnome-voice-server
+.SH SYNOPSIS
+.B gnome-voice-send
+[\fIOPTION\fR]...
+.SH DESCRIPTION
+Uploads the recording made by
+.BR gnome-voice (1)
+\(em by default \fI~/Music/GNOME.ogg\fR and \fI~/Music/GNOME.voice\fR \(em
+and prints the id and playback URL assigned by the server.
+.SH OPTIONS
+.TP
+.BR \-s ", " \-\-server =\fIURL\fR
+Server base URL (http or https). Default \fB$GVS_SERVER_URL\fR or
+http://localhost:8085.
+.TP
+.BR \-t ", " \-\-token\-file =\fIFILE\fR
+Read the upload token from \fIFILE\fR. Default \fB$GVS_TOKEN\fR.
+.TP
+.BR \-o ", " \-\-ogg =\fIFILE\fR
+Ogg Vorbis recording to send.
+.TP
+.BR \-v ", " \-\-voice =\fIFILE\fR
+Voicegram XML to send. Default: the \fI.voice\fR file next to the recording.
+.TP
+.BR \-n ", " \-\-name =\fINAME\fR ", " \-l ", " \-\-location =\fIPLACE\fR ", " \-\-lat =\fIDEG\fR ", " \-\-lon =\fIDEG\fR
+Metadata for the voicegram. When given, these override the \fI.voice\fR
+file and it is not uploaded.
+.TP
+.BR \-L ", " \-\-list
+Print the server's voicegram list (Voicegram XML).
+.TP
+.BR \-D ", " \-\-delete =\fIID\fR
+Delete a voicegram (token required).
+.TP
+.BR \-q ", " \-\-quiet
+Only print the voicegram id.
+.SH EXIT STATUS
+0 on success, 1 on any error.
+.SH SEE ALSO
+.BR gnome-voice-server (1)
+.SH AUTHOR
+Ole Kristian Aamot <ole.aamot@aamotinnovation.com>

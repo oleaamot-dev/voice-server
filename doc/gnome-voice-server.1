@@ -1,0 +1,64 @@
+.TH GNOME-VOICE-SERVER 1 "October 2026" "gnome-voice-server 1.0.0" "User Commands"
+.SH NAME
+gnome-voice-server \- store and serve GNOME Voice voicegrams
+.SH SYNOPSIS
+.B gnome-voice-server
+[\fIOPTION\fR]...
+.SH DESCRIPTION
+.B gnome-voice-server
+accepts voicegrams \(em Ogg Vorbis recordings and their Voicegram XML
+(\fI.voice\fR) metadata \(em uploaded over HTTP by the
+.BR gnome-voice (1)
+client or
+.BR gnome-voice-send (1),
+stores them on disk, and serves them back for listing and playback.
+.SH OPTIONS
+.TP
+.BR \-c ", " \-\-config =\fIFILE\fR
+Read settings from the [server] group of \fIFILE\fR.
+.TP
+.BR \-a ", " \-\-address =\fIADDR\fR
+Listen on \fIADDR\fR only. Default: all interfaces.
+.TP
+.BR \-p ", " \-\-port =\fIPORT\fR
+TCP port. Default 8085; 0 picks a free port.
+.TP
+.BR \-s ", " \-\-storage\-dir =\fIDIR\fR
+Directory holding the voicegrams.
+.TP
+.BR \-u ", " \-\-public\-url =\fIURL\fR
+Base URL written into \fI<stream>\fR links, e.g. https://voice.example.org.
+.TP
+.BR \-t ", " \-\-token\-file =\fIFILE\fR
+Require \fBAuthorization: Bearer\fR with the token in \fIFILE\fR for
+uploads, and enable deletion.
+.TP
+.BR \-m ", " \-\-max\-size =\fIBYTES\fR
+Largest accepted recording. Default 32 MiB.
+.TP
+.BR \-\-max\-clients =\fIN\fR
+Concurrent connections. Default 32.
+.TP
+.BR \-r ", " \-\-read\-only
+Serve stored voicegrams but refuse uploads.
+.TP
+.BR \-V ", " \-\-version
+Print the version and exit.
+.SH ENVIRONMENT
+.TP
+.B GVS_TOKEN
+Upload token, used when no token file is configured.
+.SH FILES
+.TP
+.I /etc/gnome-voice-server/gnome-voice-server.conf
+Configuration file.
+.TP
+.I /var/lib/gnome-voice-server/voicegrams/
+Stored \fIID\fR.ogg and \fIID\fR.voice files.
+.SH SEE ALSO
+.BR gnome-voice-send (1),
+.BR gnome-voice (1)
+.PP
+The wire protocol is described in PROTOCOL.md in the source distribution.
+.SH AUTHOR
+Ole Kristian Aamot <ole.aamot@aamotinnovation.com>
